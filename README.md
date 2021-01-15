@@ -200,7 +200,7 @@ In the above code, we created a query as Named Query (`City.findOver1MillPopulat
 
 Following `City` Entity class is mapping to the `CITY` table in MySQL as Object-Relational Mapping.
 
-```
+```java
 @Entity
 @Table(name = "city")
 @NamedQueries({ @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c"),

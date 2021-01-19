@@ -74,7 +74,6 @@ export PUBLIC_IP=$(curl ifconfig.io)
 # For DEBUG
 #########################################################
 # echo "---------- DEBUG ----------"
-# echo 'MYSQL_LOCATION='$MYSQL_LOCATION
 # echo 'MYSQL_RES_GRP_NAME='$MYSQL_RES_GRP_NAME
 # echo 'MYSQL_SERVER_NAME='$MYSQL_SERVER_NAME
 # echo 'MYSQL_USER='$MYSQL_USER

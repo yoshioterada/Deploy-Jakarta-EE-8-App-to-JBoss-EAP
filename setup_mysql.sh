@@ -57,7 +57,6 @@ fi
 # MYSQL_SERVER_NAME= MySQL Server Name
 # MYSQL_USER= MySQL Login Account Name
 # MYSQL_PASSWORD= MySQL Login Password
-# MYSQL_LOCATION= Azure Region to deploy MySQL
 #########################################################
 
 RESOURCE_GRP_NAME_DATE=$(date '+%Y%m%d%T' |tr -d :)
@@ -68,7 +67,6 @@ RANDOM_SERVER_NAME=$(cat /dev/urandom | base64 | tr -dc [:alpha:]|tr [:upper:] [
 export MYSQL_RES_GRP_NAME='MySQL-RG-'$RESOURCE_GRP_NAME_DATE
 export MYSQL_SERVER_NAME='mysqlserver-'$RANDOM_SERVER_NAME
 export MYSQL_USER='azureuser'
-export MYSQL_LOCATION='westus2'
 MYSQL_PASSWORD='!'$(cat /dev/urandom | base64 | tr -dc [:alpha:]| fold -w 8 | head -n 1)$RANDOM
 export PUBLIC_IP=$(curl ifconfig.io)
 
@@ -104,7 +102,6 @@ function CreateGeneriMySQLInstance() {
   az mysql server create \
       --name $MYSQL_SERVER_NAME \
       --resource-group $MYSQL_RES_GRP_NAME \
-      --location $MYSQL_LOCATION \
       --admin-user $MYSQL_USER \
       --admin-password $MYSQL_PASSWORD \
       --sku-name GP_Gen5_2
@@ -134,7 +131,6 @@ function CreateGeneriMySQLInstance() {
 function CreateFlexibleMySQLInstance() {
   echo "Creating MySQL Server"
   az mysql flexible-server create \
-      --location $MYSQL_LOCATION \
       --resource-group $MYSQL_RES_GRP_NAME \
       --name $MYSQL_SERVER_NAME \
       --admin-user $MYSQL_USER \
@@ -159,7 +155,7 @@ function CreateFlexibleMySQLInstance() {
 #########################################################
 
 echo "Creating Resource Group"
-az group create --name $MYSQL_RES_GRP_NAME --location $MYSQL_LOCATION
+az group create --name $MYSQL_RES_GRP_NAME 
 echo "Created Resource Group as " $MYSQL_RES_GRP_NAME
 
 #########################################################
